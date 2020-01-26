@@ -15,14 +15,21 @@
  */
 
 var pathSum = function (root, sum) {
-    let count = 0;
-    const getPath = (node, arr, sum) => {
-        if (!node) return;
-        arr.push(node.val);
-        console.log(arr);
-        getPath(node.left, arr, sum);
-        getPath(node.right, arr, sum);
+    if (!root) return 0;
+    const test = (root, sum) => {
+        let count = 0;
+        const getNum = (node, sum) => {
+            if (!node) return 0;
+            if (node.val === sum) {
+                count++
+            } else {
+                getNum(node.left, sum - node.val);
+                getNum(node.right, sum - node.val);
+            }
+        }
+        getNum(root, sum);
+        return count;
     }
-    getPath(root, [], sum);
-    return count;
+
+    return getNum(root, sum - root.val) + pathSum(root.left, sum) + pathSum(root.right, sum);
 };
