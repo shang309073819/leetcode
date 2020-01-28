@@ -27,3 +27,6 @@ var search = function (nums, target) {
 };
 // @lc code=end
 
+//考虑边界问题
+//right - left === 1 的问题
+//lenght === 1 的问题
