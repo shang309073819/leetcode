@@ -12,16 +12,12 @@
  */
 var search = function (nums, target) {
     let n = nums.length;
-    if (n === 1) return nums[0] === target ? 0 : -1;
     let search_binary = (left, right) => {
-        if (1 === right - left) {
-            return nums[left] === target ? left : (nums[right] === target ? right : -1)
-        }
+        if(left > right) return -1;
         let middle = Math.floor((left + right) / 2);
-        if (target === nums[middle]) return middle;
-        if (target > nums[middle]) left = middle;
-        if (target < nums[middle]) right = middle;
-        return search_binary(left, right);
+        if (nums[middle] === target) return middle;
+        if (nums[middle] < target) return search_binary(middle + 1, right);
+        if (nums[middle] > target) return search_binary(left, middle - 1);
     }
     return search_binary(0, n - 1);
 };
